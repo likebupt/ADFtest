@@ -1,0 +1,81 @@
+{
+	"name": "pipeline1",
+	"properties": {
+		"activities": [
+			{
+				"name": "read_blob",
+				"type": "AzureMLExecutePipeline",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"mlPipelineId": "de52dc4a-7f2e-42f7-9d1f-5335495b425c"
+				},
+				"linkedServiceName": {
+					"referenceName": "keli19eastusaml",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "read_blob2",
+				"type": "AzureMLExecutePipeline",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"mlPipelineId": "de52dc4a-7f2e-42f7-9d1f-5335495b425c"
+				},
+				"linkedServiceName": {
+					"referenceName": "keli19eastusaml",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "test123",
+				"type": "AzureMLExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "read_blob",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "read_blob2",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"mlPipelineEndpointId": "f981aa34-9f42-4f87-9f5d-8d7a9b7cfd95"
+				},
+				"linkedServiceName": {
+					"referenceName": "keli19eastusaml",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"annotations": []
+	}
+}
